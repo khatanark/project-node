@@ -1,9 +1,23 @@
 const express =require('express');
 const exphbs  = require('express-handlebars');
- 
+const mongoose = require('mongoose');
 
-const app= express();
-// we need to call the express function.
+const app = express();
+
+// Map global promise - get rid of warning
+mongoose.Promise = global.Promise;
+// Connect to mongoose
+mongoose.connect('mongodb://localhost/vidjot-dev')
+  .then(() => console.log('MongoDB Connected...'))
+  .catch(err => console.log(err));
+
+
+  // Load Idea model. So first we require the file we created. 
+
+  require('./models/Idea');
+  // in this we pass the name of the model.
+  const Idea= mongoose.model('ideas');
+
 
 // Note- Lot of the middleware have their middlewares.
 // Handlebars middleware.
@@ -18,7 +32,7 @@ app.set('view engine', 'handlebars'); // We are telling the system that we are u
 
 
 
-
+ 
 
 
 //How middleware works.It is any piece code which has the access to the req and res objects
