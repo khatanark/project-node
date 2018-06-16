@@ -7,7 +7,7 @@ const app = express();
 // Map global promise - get rid of warning
 mongoose.Promise = global.Promise;
 // Connect to mongoose
-mongoose.connect('mongodb://localhost/vidjot-dev')
+mongoose.connect('mongodb://localhost/vidjot-  ')
   .then(() => console.log('MongoDB Connected...'))
   .catch(err => console.log(err));
 
@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost/vidjot-dev')
 
 
 // Note- Lot of the middleware have their middlewares.
-// Handlebars middleware.
+// Handlebars  middleware.
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars'); // We are telling the system that we are using handlebar template engine.
@@ -51,6 +51,13 @@ res.render('index');
 app.get('/about',(req,res)=>{
 res.render('about');
 });
+
+// Add idea form 
+app.get('/ideas/add',(req,res)=>{
+	res.render('ideas/add')
+});
+
+
 
 //Aboute routes
 app.get('/about', (req,res)=>{
