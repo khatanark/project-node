@@ -58,6 +58,17 @@ app.get('/about',(req,res)=>{
 res.render('about');
 });
 
+//Idea index page
+app.get('/ideas', (req,res)=>{
+  Idea.find({}).then(ideas=>{
+    res.render('ideas/index' ,{ 
+      ideas:ideas
+
+    });
+  });
+});
+
+
 // Add idea form 
 app.get('/ideas/add',(req,res)=>{
 	res.render('ideas/add')
@@ -79,7 +90,15 @@ app.post('/ideas', (req,res)=>{
     details: req.body.details
    	});
    } else{
-   	res.send('passed');
+   	const newUser = {
+   		title: req.body.title,
+   		details: req.body.details
+   	}
+   	// Idea came from the model created above. 
+   	new Idea(newUser).save().then(idea=>{
+   		res.redirect('/ideas'); 
+   	})
+
    } 
 
 });
