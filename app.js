@@ -62,7 +62,7 @@ res.render('about');
 app.get('/ideas', (req,res)=>{
   Idea.find({}).then(ideas=>{
     res.render('ideas/index' ,{ 
-      ideas:ideas
+      ideas:ideas 
 
     });
   });
@@ -73,6 +73,19 @@ app.get('/ideas', (req,res)=>{
 app.get('/ideas/add',(req,res)=>{
 	res.render('ideas/add')
 });
+
+// Edit Idea Form
+app.get('/ideas/edit/:id', (req, res) => {
+  Idea.findOne({
+    _id: req.params.id
+  })
+  .then(idea => {
+    res.render('ideas/edit', {
+      idea:idea
+    });
+  });
+});
+
 
 // Process form
 app.post('/ideas', (req,res)=>{
